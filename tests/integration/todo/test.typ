@@ -3,42 +3,41 @@
 #set par(justify: true)
 #set page(width: 9cm, height: auto, margin: (outside: 4cm, rest: 5mm))
 
-#let todo(body) = sidenote(
-  gap: 0.5em,
+#let todo(color: red, body) = sidenote(
   padding: (inside: 2em, outside: 1em),
   numbering: none,
   format: it => {
     // Add line to source location.
     let dx = it.source.position().x - here().position().x
     let dy = it.source.position().y - here().position().y
+    let offset = 0.175em
 
-    let start-y = measure[x].height / 2
+    let start-y = 0em
     let start-x = if it.side == left { it.margin - it.padding.values().sum() }
                   else { 0pt }
-    let gap = 0.175em
     let padding = if it.side == left { it.padding.right }
                   else { -it.padding.left }
     
     place(path(
-      stroke: (paint: red, join: "round", cap: "round"),
+      stroke: (paint: color, join: "round", cap: "round"),
       (start-x, start-y),
       (start-x + padding / 2, start-y),
-      (start-x + padding / 2, dy + gap),
-      (dx + 1pt, dy + gap),
+      (start-x + padding / 2, dy + offset),
+      (dx, dy + offset),
     ))
 
-    place(
-      dx: dx,
-      dy: dy + gap - 1pt,
-      circle(radius: 1pt, fill: red)
-    )
+    place(dx: dx, dy: dy + offset, {
+      place(center + horizon, circle(radius: 1pt, fill: color))
+    })
 
     // Add original note in a colorful box.
     box(
       width: 100%,
-      fill: yellow,
-      stroke: (paint: red, join: "round"),
-      outset: 0.4em,
+      fill: color.lighten(75%),
+      stroke: ((repr(it.side.inv())): color),
+      radius: 0.5pt,
+      inset: (x: 0.5em),
+      outset: (y: 0.5em),
       it.default
     )
   },
@@ -46,5 +45,11 @@
 )
 
 Lorem ipsum dolor sit amet, consectetur #todo["consectetur" is a weird word]
-adipiscing elit, sed do  eiusmod #todo[so is "eiusmod"]
+adipiscing elit, sed do  eiusmod #todo(color: blue)[so is "eiusmod"]
+tempor incididunt ut labore et dolore magnam aliquam quaerat.
+
+#pagebreak()
+
+Lorem ipsum dolor sit amet, consectetur #todo(color: orange)[same as before]
+adipiscing elit, sed do  eiusmod #todo(color: green)[last one]
 tempor incididunt ut labore et dolore magnam aliquam quaerat.

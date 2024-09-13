@@ -6,15 +6,15 @@
 #let sidenote = sidenote.with(numbering: "1")
 
 #lorem(3)
-#sidenote(format: it => [(#it.counter.display(it.numbering))~#it.body])[
+#sidenote(format: it => [(#it.counter.display(it.numbering)) #it.body])[
   Sidenote with parenthesized number.
 ]
 #lorem(10)
 #sidenote(format: it => smallcaps(it.default))[
-  Sidenote in small caps.
+  Small caps sidenote.
 ]
 #lorem(10)
-#sidenote(format: it => text(size: 8pt, it.default))[
-  Sidenote with small text size.
+#sidenote(format: it => text(red, it.default))[
+  Sidenote with red text and number.
 ]
 #lorem(5)

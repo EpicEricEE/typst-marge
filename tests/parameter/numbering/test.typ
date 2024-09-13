@@ -13,4 +13,4 @@
 #sidenote(numbering: num => [#{2 * num}])[Function numbering]
 #lorem(4)
 #sidenote(numbering: num => [#here().position().x])[Contextual numbering]
-#lorem(25)
+#lorem(18)

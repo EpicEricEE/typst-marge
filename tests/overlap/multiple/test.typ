@@ -1,7 +1,7 @@
 #import "/src/lib.typ": sidenote
 
 #set par(justify: true)
-#set page(width: 8cm, height: 24.2cm, margin: (outside: 4.5cm, rest: 5mm))
+#set page(width: 8cm, height: 20cm, margin: (outside: 4.5cm, rest: 5mm))
 
 #let sidenote = sidenote.with(numbering: "1")
 

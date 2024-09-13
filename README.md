@@ -62,12 +62,7 @@ The use of the `container` variable is detected automatically by the package, so
 #set page(margin: (right: 5cm))
 #set par(justify: true)
 
-#let sidenote = sidenote.with(
-  side: right,
-  numbering: "1",
-  padding: 1em,
-  format: it => text(0.8em, it.default)
-)
+#let sidenote = sidenote.with(numbering: "1", padding: 1em)
 
 The Simpsons is an iconic animated series that began in 1989
 #sidenote[The show holds the record for the most episodes of any
