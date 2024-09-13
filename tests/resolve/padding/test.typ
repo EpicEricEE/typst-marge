@@ -3,7 +3,6 @@
 #context assert.eq(resolve-padding(none), (left: 0pt, right: 0pt))
 #context assert.eq(resolve-padding(2pt), (left: 2pt, right: 2pt))
 #context assert.eq(resolve-padding(1em), (left: 11pt, right: 11pt))
-#context assert.eq(resolve-padding((1pt, 2pt)), (left: 1pt, right: 2pt))
 #context assert.eq(resolve-padding((left: 1pt)), (left: 1pt, right: 0pt))
 #context assert.eq(resolve-padding((left: 1pt, right: 2pt)), (left: 1pt, right: 2pt))
 #context assert.eq(resolve-padding((end: 2pt)), (left: 0pt, right: 2pt))

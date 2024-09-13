@@ -37,15 +37,10 @@
 
 /// Validate the `padding` parameter of the `sidenote` function.
 #let validate-padding(padding) = {
-  let expected = (length, array, dictionary)
+  let expected = (length, dictionary)
   assert(type(padding) in expected, message: invalid("padding", expected, padding))
 
-  if type(padding) == array {
-    assert(
-      padding.len() <= 2,
-      message: "invalid `padding`: array must have at most two elements"
-    )
-  } else if type(padding) == dictionary {
+  if type(padding) == dictionary {
     let uses-inside-outside = "inside" in padding or "outside" in padding
     let uses-start-end = "start" in padding or "end" in padding
     let uses-left-right = "left" in padding or "right" in padding
@@ -63,13 +58,9 @@
         message: invalid("`padding` key", expected, key)
       )
     }
-    padding = padding.values()
-  } else {
-    padding = (padding,)
-  }
-
-  for el in padding {
-    assert(type(el) == length, message: invalid("padding", length, el))
+    for el in padding.values() {
+      assert(type(el) == length, message: invalid("padding", length, el))
+    }
   }
 }
 

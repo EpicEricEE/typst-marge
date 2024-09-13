@@ -109,8 +109,7 @@
 
 /// Resolve the note padding into a dictionary with left and right keys.
 /// 
-/// The padding can be given as a single value, an array with maximum two
-/// values or a dictionary with left and/or right keys.
+/// The padding can be given as a single value or as a dictionary.
 /// 
 /// Requires context.
 #let resolve-padding(padding) = {

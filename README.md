@@ -20,7 +20,7 @@ The parameters allow maximum flexibility and often allow values of different typ
 
 - The `side` parameter can be set to `auto`, `"inside"`, `"outside"` or any horizontal `alignment` value. If set to `auto`, the note is placed on the larger of the two margins. If they are equally large, it is placed on the `"outside"` margin.
 - If the `dy` parameter has a relative part, it is resolved relative to the height of the note.
-- The `padding` parameter can be set either to a single length value, a tuple or left and right padding, or a dictionary. If a dictionary is used, the keys can be any value that is also accepted by the `side` parameter.
+- The `padding` parameter can be set either to a single length value or a dictionary. If a dictionary is used, the keys can be any horizontal alignment value, as well as `inside` and `outside`.
 - With the `counter` parameter, you can for example combine the numbering of footnotes and sidenotes.
 
 An especially useful feature is the `format` parameter, as it emulates the behavior of a show rule via a function. That function is called with the context of the note and receives a dictionary  with the following keys:
