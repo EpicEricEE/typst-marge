@@ -87,9 +87,6 @@
   }
   
   h(0pt, weak: true) + sym.zwj + context {
-    // Notes are stored in a per-page state.
-    let margin-note-state = page-state(here().page())
-
     // Resolve values.
     let side = resolve-side(side)
     let padding = resolve-padding(padding)
@@ -125,21 +122,18 @@
   
     // Calculate position of note on y-axis. The note is moved up, so that it
     // aligns with the line of the paragraph.
-    // TODO: This should be done at another point to accomodate for different
-    //       font sizes. Alignment should be at the baseline.
-    let text-height = measure[x].height
     let position = here().position()
-    position.y += dy.to-absolute() - text-height
+    position.y += dy.to-absolute() - measure[x].height
 
     // Set x-position of note depending on side.
     position.x = if side == right and page-width != auto { page-width - margin }
                  else { 0pt }
 
-    margin-note-state.update(state => {
+    page-state(here().page()).update(notes => {
       let position = position
       
       // Move note down to avoid overlap with previous one.
-      let prev = state.at(-1, default: none)
+      let prev = notes.at(-1, default: none)
       position.y += if prev != none and prev.side == side {
         let gap = calc.max(gap, prev.gap)
         let overlap = prev.position.y + prev.height - position.y + leading + gap
@@ -163,36 +157,34 @@
       // Move previous notes up to restore the gap and prevent overlap with
       // previously moved up notes, starting from the bottom.
       let current = new
-      for (i, prev) in state.enumerate().rev().filter(((_, note)) => note.side == side) {
+      for (i, prev) in notes.enumerate().rev().filter(((_, note)) => note.side == side) {
         let gap = calc.max(current.gap, prev.gap)
         let overlap = prev.position.y + prev.height - current.position.y + leading + gap
-        state.at(i).position.y -= calc.max(0pt, overlap)
-        current = state.at(i)
+        notes.at(i).position.y -= calc.max(0pt, overlap)
+        current = notes.at(i)
       }
 
-      // Append new note to the state of all notes on this page.
-      state + (new,)
+      // Append new note to the list of all notes on this page.
+      notes + (new,)
     })
 
     // Place the note on the page. Only use this automatic placement
     // if no container is used for this page!
     if page-container(here().page()) not in query(metadata) {
-      let index = margin-note-state.get().len()
-      let final = margin-note-state.final().at(index, default: none)
+      let index = page-state(here().page()).get().len()
+      let final = page-state(here().page()).final().at(index, default: none)
 
-      context if final != none {
+      if final != none {
         assert(page-width != auto or final.side == left, message: {
-          "cannot place note on right margin of page with width auto\n"
+          "cannot place note on right margin of page with width auto.\n"
           "hint: import the `container` value of the package and use it as the "
           "page background or foreground"
         })
-        
-        let (x, y) = here().position()
 
         box(place(
           final.body,
-          dx: final.position.x - x,
-          dy: final.position.y - y
+          dx: final.position.x - here().position().x,
+          dy: final.position.y - here().position().y
         ))
       }
     }
