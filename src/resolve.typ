@@ -43,6 +43,18 @@
   else { panic("invalid side") }
 }
 
+/// Resolve the page size.
+/// 
+/// Requires context.
+#let resolve-page-size() = {
+  let width = resolve-auto(page.width, calc.inf * 1pt).to-absolute()
+  let height = resolve-auto(page.height, calc.inf * 1pt).to-absolute()
+  if page.flipped {
+    (width, height) = (height, width)
+  }
+  (width: width, height: height)
+}
+
 /// Resolve the page margin at the given side.
 /// 
 /// Side can be "inside", "outside", start, end, left, right, top or bottom.
@@ -52,6 +64,7 @@
 #let resolve-margin(side) = {
   let side = resolve-side(side)
   let binding = resolve-binding()
+  let page-size = resolve-page-size()
 
   let margin = if page.margin == auto or type(page.margin) == length {
     page.margin
@@ -74,10 +87,7 @@
 
   // Resolve auto margin.
   let result = resolve-auto(margin, {
-    let size = calc.min(
-      resolve-auto(page.width, calc.inf * 1pt),
-      resolve-auto(page.height, calc.inf * 1pt)
-    )
+    let size = calc.min(page-size.width, page-size.height)
     if size.pt().is-infinite() { size = 210mm }
     2.5 / 21 * size
   })
@@ -85,11 +95,13 @@
   // Resolve relative values.
   if type(result) == relative {
     let relative-to = if side.axis() == "horizontal" {
-      resolve-auto(page.height, 0pt)
+      page-size.width
     } else {
-      resolve-auto(page.width, 0pt)
+      page-size.height
     }
-    result = result.length + result.ratio * relative-to
+    result = result.length + if relative-to.pt().is-infinite() { 0pt } else {
+      result.ratio * relative-to
+    }
   }
 
   result

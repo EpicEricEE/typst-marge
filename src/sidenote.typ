@@ -95,7 +95,7 @@
     let padding = resolve-padding(padding)
     let margin = resolve-margin(side).to-absolute()
     let bottom-margin = resolve-margin(bottom).to-absolute()
-    let page-height = resolve-auto(page.height, calc.inf * 1pt).to-absolute()
+    let (width: page-width, height: page-height) = resolve-page-size()
     let gap = gap.to-absolute()
     let leading = par.leading.to-absolute()
 
@@ -132,7 +132,7 @@
     position.y += dy.to-absolute() - text-height
 
     // Set x-position of note depending on side.
-    position.x = if side == right and page.width != auto { page.width - margin }
+    position.x = if side == right and page-width != auto { page-width - margin }
                  else { 0pt }
 
     margin-note-state.update(state => {
@@ -181,7 +181,7 @@
       let final = margin-note-state.final().at(index, default: none)
 
       context if final != none {
-        assert(page.width != auto or final.side == left, message: {
+        assert(page-width != auto or final.side == left, message: {
           "cannot place note on right margin of page with width auto\n"
           "hint: import the `container` value of the package and use it as the "
           "page background or foreground"
