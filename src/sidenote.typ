@@ -53,7 +53,7 @@
 /// - `format`: The "show rule" of the note.
 /// - `body`: The body of the note.
 #let sidenote(
-  side: "outside",
+  side: auto,
   dy: 0pt,
   padding: 2em,
   gap: 0.4em,
@@ -89,6 +89,16 @@
   }
   
   h(0pt, weak: true) + sym.zwj + context {
+    // Use side with largest margin if side is `auto`.
+    let side = if side != auto { side } else {
+      let margin-left = resolve-margin(left)
+      let margin-right = resolve-margin(right)
+
+      if margin-left > margin-right { left }
+      else if margin-right > margin-left { right }
+      else { "outside" }
+    }
+
     // Resolve values.
     let side = resolve-side(side)
     let padding = resolve-padding(padding)

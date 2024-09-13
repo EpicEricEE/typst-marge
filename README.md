@@ -8,7 +8,7 @@ This package provides a `sidenote` function that can be used to create margin no
 
 | Parameter   | Description                                                           | Default               |
 | ----------- | --------------------------------------------------------------------- | --------------------- |
-| `side`      | The margin where the note should be placed.                           | `"outside"`           |
+| `side`      | The margin where the note should be placed.                           | `auto`                |
 | `dy`        | The custom offset by which the note should be moved along the y-axis. | `0pt`                 |
 | `padding`   | The space between the note and the page or content border.            | `2em`                 |
 | `gap`       | The minimum gap between this and neighboring notes.                   | `0.4em`               |
@@ -18,7 +18,7 @@ This package provides a `sidenote` function that can be used to create margin no
 
 The parameters allow maximum flexibility and often allow values of different types:
 
-- The `side` parameter can be set to `"inside"` or `"outside"` or any horizontal `alignment` value.
+- The `side` parameter can be set to `auto`, `"inside"`, `"outside"` or any horizontal `alignment` value. If set to `auto`, the note is placed on the larger of the two margins. If they are equally large, it is placed on the `"outside"` margin.
 - If the `dy` parameter has a relative part, it is resolved relative to the height of the note.
 - The `padding` parameter can be set either to a single length value, a tuple or left and right padding, or a dictionary. If a dictionary is used, the keys can be any value that is also accepted by the `side` parameter.
 - With the `counter` parameter, you can for example combine the numbering of footnotes and sidenotes.

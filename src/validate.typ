@@ -24,7 +24,7 @@
 /// Validate the `side` parameter of the `sidenote` function.
 #let validate-side(side) = {
   let expected = (
-    "outside", "inside", "start", "end", "left", "right", start, end, left, right
+    "outside", "inside", "start", "end", "left", "right", start, end, left, right, auto
   )
   assert(side in expected, message: invalid("side", expected, side))
 }

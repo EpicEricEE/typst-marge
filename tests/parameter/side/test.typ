@@ -14,3 +14,9 @@
 #lorem(4)
 #sidenote(side: left)[This note is on the left.]
 #lorem(4)
+
+#set page(margin: (right: 4cm, rest: 5mm))
+
+#lorem(4)
+#sidenote[This note is on the right.]
+#lorem(7)
