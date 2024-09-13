@@ -104,7 +104,7 @@
     }
   }
 
-  result
+  result.to-absolute()
 }
 
 /// Resolve the note padding into a dictionary with left and right keys.
@@ -114,7 +114,7 @@
 /// 
 /// Requires context.
 #let resolve-padding(padding) = {
-  if type(padding) == length {
+  let (left, right) = if type(padding) == length {
     (left: padding, right: padding)
   } else if type(padding) == array {
     (left: padding.at(0, default: 0pt), right: padding.at(1, default: 0pt))
@@ -135,4 +135,6 @@
   } else {
     panic("invalid padding")
   }
+
+  (left: left.to-absolute(), right: right.to-absolute())
 }

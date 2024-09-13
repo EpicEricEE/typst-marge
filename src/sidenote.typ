@@ -79,7 +79,7 @@
       let state = page-state(here().page())
       let note = state.final().at(state.get().len())
       let pos = note.position
-      pos.x += note.padding.left.to-absolute()
+      pos.x += note.padding.left
 
       let num = counter.display(numbering)
       h(0pt, weak: true) + link(pos, super(num))
@@ -93,8 +93,8 @@
     // Resolve values.
     let side = resolve-side(side)
     let padding = resolve-padding(padding)
-    let margin = resolve-margin(side).to-absolute()
-    let bottom-margin = resolve-margin(bottom).to-absolute()
+    let margin = resolve-margin(side)
+    let bottom-margin = resolve-margin(bottom)
     let (width: page-width, height: page-height) = resolve-page-size()
     let gap = gap.to-absolute()
     let leading = par.leading.to-absolute()
