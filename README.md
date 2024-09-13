@@ -54,6 +54,16 @@ If a note is placed on the right margin of a page with width `auto`, further ste
 
 The use of the `container` variable is detected automatically by the package, so that an error can be raised when it is required but not set.
 
+### Note about layout convergence and performance
+
+The package makes heavy use of states and contextual blocks. This leads to a the fact that Typst requires multiple layout passes to fully resolve the final layout. Usually, the limit imposed by Typst is sufficient, but I cannot guarantee that this will remain true for large document with a lot of notes. If you happen to run into this limit, you can try using the `container` variable as mentioned above, as it can reduce the number of layout passes required.
+
+As each layout iteration adds to the total compile time, the use of the `container` can also be beneficial for performance reasons. Another performance tip is to keep the size of paragraphs containing margin notes small, as the line breaking algorithm cannot be memoized when the paragraph contains a note.
+
+### Note about how lengths are resolved
+
+When a length is given in a context-dependent way (i.e. in `em` units), it is resolved relative to the font size of the _content_, not the font size of the note (which is smaller by default). This has the unfortunate side effect that a gap of `0pt` is not actually zero, because the content paragraph's leading (which is also larger than default leading of the note) is automatically added. Similarly, if notes are defined in a context with a larger font size, the padding and gap values may unexpectedly be larger than of neighboring notes.
+
 ## Example
 
 ```typ
