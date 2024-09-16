@@ -4,7 +4,7 @@ A package for easy-to-use but powerful and smart margin notes.
 
 ## Usage
 
-This package provides a `sidenote` function that can be used to create margin notes. The function takes a single positional argument, the text of the note, and a number of optional keyword arguments that can be used to customize the appearance of the note:
+The main function provided by this package is `sidenote`, which allows you to create margin notes. The function takes a single positional argument (the text of the note) and several optional keyword arguments for customization:
 
 | Parameter   | Description                                                           | Default               |
 | ----------- | --------------------------------------------------------------------- | --------------------- |
@@ -42,7 +42,7 @@ Aside from the customizability, the package also provides automatic overlap and 
 
 ### Note about pages with automatic width
 
-If a note is placed on the right margin of a page with width `auto`, further steps are required. As the final width of the page is not known when the note is placed, the note's position cannot be calculated. To still be able to place notes on the right margin of such pages, the package provides a `container` variable, which is supposed to be set as the page's background or foreground:
+If a note is placed in the right margin of a page with width set to `auto`, additional configuration is necessary. As the final width of the page is not known when the note is placed, the note's position cannot be calculated. To place notes on the right margin of such pages, the package provides a `container`, which is supposed to be included in the page's `background` or `foreground`:
 
 ```typ
 #import "@preview/marge:0.1.0": sidenote, container
@@ -56,13 +56,13 @@ The use of the `container` variable is detected automatically by the package, so
 
 ### Note about layout convergence and performance
 
-The package makes heavy use of states and contextual blocks. This leads to a the fact that Typst requires multiple layout passes to fully resolve the final layout. Usually, the limit imposed by Typst is sufficient, but I cannot guarantee that this will remain true for large document with a lot of notes. If you happen to run into this limit, you can try using the `container` variable as mentioned above, as it can reduce the number of layout passes required.
+This package makes heavy use of states and contextual blocks, causing Typst to require multiple layout passes to fully resolve the final layout. Usually, the limit imposed by Typst is sufficient, but I cannot guarantee that this will remain true for large documents with a lot of notes. If you happen to run into this limit, you can try using the `container` variable as mentioned above, as it can reduce the number of layout passes required.
 
 As each layout iteration adds to the total compile time, the use of the `container` can also be beneficial for performance reasons. Another performance tip is to keep the size of paragraphs containing margin notes small, as the line breaking algorithm cannot be memoized when the paragraph contains a note.
 
 ### Note about how lengths are resolved
 
-When a length is given in a context-dependent way (i.e. in `em` units), it is resolved relative to the font size of the _content_, not the font size of the note (which is smaller by default). This has the unfortunate side effect that a gap of `0pt` is not actually zero, because the content paragraph's leading (which is also larger than default leading of the note) is automatically added. Similarly, if notes are defined in a context with a larger font size, the padding and gap values may unexpectedly be larger than of neighboring notes.
+When a length is given in a context-dependent way (i.e. in `em` units), it is resolved relative to the font size of the _content_, not the font size of the note (which is smaller by default). This has the unfortunate side effect that a gap set to `0pt` will still have some space due to the content paragraph's leading (which is also larger than default leading of the note). Similarly, if notes are defined in a context with a larger font size, the padding and gap values may unexpectedly be larger than of neighboring notes.
 
 ## Example
 

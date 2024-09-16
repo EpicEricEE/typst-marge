@@ -20,11 +20,11 @@
   ))
 }
 
-/// A container of all margin notes.
+/// A container of all margin notes of the current page.
 ///
-/// To be used as the `page.background` or `page.foreground` parameter when the
-/// page width is `auto`, as notes then cannot be automtically placed onto the
-/// right margin.
+/// To be used as the page's `background` or `foreground` parameter when the
+/// page width is set to `auto`, as notes then cannot be automatically placed
+/// in the right margin.
 #let container = context {
   page-container(here().page())
   for note in page-state(here().page()).final() {
@@ -32,16 +32,17 @@
   }
 }
 
-/// A sidenote to be placed onto the page margin.
+/// A sidenote to be placed in the page margin.
 /// 
-/// If this note ends up on the right margin of a page with width `auto`, it
-/// cannot be placed automatically. In this case, the page's `background` or
-/// `foreground` should be set to the `container` value of this package.
+/// If this note ends up on the right margin of a page with width set to
+/// `auto`, it cannot be placed automatically. In this case, the page's
+/// `background` or `foreground` should be set to the include the `container`
+/// provided by this package.
 /// 
 /// There are two correction mechanisms in place:
 /// - When two notes would overlap, the second one is moved down to avoid this.
 /// - When a note would overflow into the bottom margin, it is moved up. Any
-///   previous notes, that this note would now overlap with, are also moved up.
+///   previous notes that this note would now overlap with are also moved up.
 /// 
 /// # Parameters:
 /// - `side`: The margin where the note should be placed.
