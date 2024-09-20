@@ -66,7 +66,7 @@
   let binding = resolve-binding()
   let page-size = resolve-page-size()
 
-  let margin = if page.margin == auto or type(page.margin) == length {
+  let margin = if type(page.margin) in (length, relative, ratio, type(auto)) {
     page.margin
   } else if type(page.margin) == dictionary {
     let inside = if calc.odd(here().page()) { binding } else { binding.inv() }
