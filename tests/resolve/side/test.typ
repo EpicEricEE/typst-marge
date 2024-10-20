@@ -9,6 +9,7 @@
   set page(binding: right)
   context assert.eq(here().page(), 1)
   context assert.eq(resolve-side("inside"), right)
+  pagebreak()
 }
 
 ~
@@ -32,6 +33,6 @@
 
 #{
   set page(flipped: true)
-  context assert.eq(here().page(), 5)
-  context assert.eq(resolve-side("inside"), left)
+  context assert.eq(here().page(), 4)
+  context assert.eq(resolve-side("inside"), right)
 }

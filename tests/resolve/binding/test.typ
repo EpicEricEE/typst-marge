@@ -6,7 +6,7 @@
 
 #{
   set page(binding: right)
-  context assert.eq(here().page(), 2)
+  context assert.eq(here().page(), 1)
   context assert.eq(resolve-binding(), right)
 }
 
