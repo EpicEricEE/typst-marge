@@ -6,6 +6,7 @@
   width: 12cm,
   height: 8.05cm,
   margin: 1em,
+  fill: none,
   background: pad(0.5pt, box(
     width: 100%,
     height: 100%,
