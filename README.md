@@ -36,7 +36,7 @@ An especially useful feature is the `format` parameter, as it emulates the behav
 | `body`      | The content of the note.                                 | `str`                       |
 | `default`   | The default look of the note.                            | `content`                   |
 
-As the dictionary itself is not an element, you cannot directly use it within the `format` function as you would be able to in a normal show rule. To still be able to build upon the default look of the note without having to reconstruct it, the `default` key is provided.
+As the dictionary itself is not an element, you cannot directly use it within the `format` function as you would be able to in a normal show rule. To still be able to build upon the default look of the note without having to reconstruct it, the `default` key is provided. The default style sets the font size to `0.85em` and the paragraph's leading to `0.5em`, matching the default style of footnotes. This can of course be overridden.
 
 Aside from the customizability, the package also provides automatic overlap and overflow protection. If a note would overlap with another note, it is moved further down the page, so that the `gap` parameters of both notes are respected. If a note would overflow the page, it is moved upwards, so that the bottom of the note is aligned with the bottom of the page content. Any previous notes, which would then overlap with the moved note, are also moved accordingly.
 
