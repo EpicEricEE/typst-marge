@@ -14,10 +14,10 @@
     link(it.source, super(it.counter.display(it.numbering)))
     h(0.05em, weak: true)
   }
-  align(start, par(
+  par(
     hanging-indent: par.hanging-indent + measure(num).width,
     num + h(0pt, weak: true) + it.body
-  ))
+  )
 }
 
 /// A container of all margin notes of the current page.
@@ -111,7 +111,7 @@
 
     // Create note content.
     let note-body = block(inset: padding, width: margin, {
-      set align(align.alignment)
+      set align(start)
       set text(size: 0.85em)
       set par(leading: 0.5em)
 
