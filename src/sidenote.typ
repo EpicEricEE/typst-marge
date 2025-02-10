@@ -118,6 +118,7 @@
       set align(start)
       set text(size: 0.85em)
       set par(leading: 0.5em)
+      set par.line(numbering: none)
 
       let source = here()
       context {
