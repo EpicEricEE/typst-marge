@@ -2,9 +2,9 @@
 #import "validate.typ": validate
 
 /// Get the margin note state for a specific page.
-#let page-state(page) = state("marge:0.1.0/page-" + str(page), ())
+#let page-state(page) = state("marge/page-" + str(page), ())
 /// Get the container mark metadata for a specific page.
-#let page-container(page) = metadata("marge:0.1.0/container-" + str(page))
+#let page-container(page) = metadata("marge/container-" + str(page))
 /// The sidenote counter.
 #let counter = counter("sidenote")
 
