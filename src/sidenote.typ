@@ -14,10 +14,14 @@
     link(it.source, super(it.counter.display(it.numbering)))
     h(0.05em, weak: true)
   }
-  par(
-    hanging-indent: par.hanging-indent + measure(num).width,
-    num + h(0pt, weak: true) + it.body
-  )
+
+  let indent = measure(num).width
+  let args = ((repr(resolve-side(start))): indent)
+
+  pad(..args, {
+    if num != none { h(-indent) + num }
+    it.body
+})
 }
 
 /// A container of all margin notes of the current page.
