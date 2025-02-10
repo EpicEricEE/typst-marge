@@ -12,16 +12,19 @@
 #let default-format(it) = {
   let num = if it.numbering != none {
     link(it.source, super(it.counter.display(it.numbering)))
-    h(0.05em, weak: true)
+    h(0.05em)
   }
 
   let indent = measure(num).width
-  let args = ((repr(resolve-side(start))): indent)
+  let _start = repr(resolve-side(start))
 
-  pad(..args, {
-    if num != none { h(-indent) + num }
+  pad(..((_start): indent), {
+    if num != none {
+      box(num, inset: ((_start): -indent))
+      sym.wj + h(0pt, weak: true)
+    }
     it.body
-})
+  })
 }
 
 /// A container of all margin notes of the current page.
@@ -93,7 +96,7 @@
     }
   }
   
-  h(0pt, weak: true) + sym.zwj + context {
+  h(0pt, weak: true) + sym.wj + context {
     // Use side with largest margin if side is `auto`.
     let side = if side != auto { side } else {
       let margin-left = resolve-margin(left)
