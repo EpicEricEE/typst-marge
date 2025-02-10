@@ -146,6 +146,10 @@
     position.x = if side == right and page-width != auto { page-width - margin }
                  else { 0pt }
 
+    if resolve-dir() == rtl {
+      position.x += margin
+    }
+
     page-state(here().page()).update(notes => {
       let position = position
       
@@ -199,6 +203,7 @@
         })
 
         box(place(
+          resolve-side(start),
           final.body,
           dx: final.position.x - here().position().x,
           dy: final.position.y - here().position().y
