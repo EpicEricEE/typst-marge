@@ -11,7 +11,7 @@
 /// The default format for margin notes.
 #let default-format(it) = {
   let num = if it.numbering != none {
-    link(it.source, super(it.counter.display(it.numbering)))
+    link(it.source, super(numbering(it.numbering, ..it.counter.at(it.source))))
     h(0.05em)
   }
 
