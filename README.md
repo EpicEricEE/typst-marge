@@ -40,6 +40,20 @@ As the dictionary itself is not an element, you cannot directly use it within th
 
 Aside from the customizability, the package also provides automatic overlap and overflow protection. If a note would overlap with another note, it is moved further down the page, so that the `gap` parameters of both notes are respected. If a note would overflow the page, it is moved upwards, so that the bottom of the note is aligned with the bottom of the page content. Any previous notes, which would then overlap with the moved note, are also moved accordingly.
 
+### Example of customization
+
+One simple example of customizing the look of the note is to set the font size and leading of the note to `0.7em` and `0.4em`, respectively. Since `em` values are applied consecutively, we need to make sure that the default sizes are not applied again. This can be done by dividing the size by the default size of `0.85em`.
+
+```typ
+#let sidenote = sidenote.with(
+  format: it => {
+    set text(size: 0.7em / 0.85)
+    set par(leading: 0.4em / 0.5)
+    it.default
+  }
+)
+```
+
 ### Note about pages with automatic width
 
 If a note is placed in the right margin of a page with width set to `auto`, additional configuration is necessary. As the final width of the page is not known when the note is placed, the note's position cannot be calculated. To place notes on the right margin of such pages, the package provides a `container`, which is supposed to be included in the page's `background` or `foreground`:
