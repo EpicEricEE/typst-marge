@@ -35,6 +35,7 @@
 #let container = context {
   page-container(here().page())
   for note in page-state(here().page()).final() {
+    set text(dir: note.dir)
     place(top + note.side, note.body, dy: note.position.y)
   }
 }
@@ -84,7 +85,11 @@
 
   // Place number in paragraph.
   if numbering != none {
+    h(0pt, weak: true)
+
+    context if resolve-dir() == rtl [\u{200E}]
     counter.step()
+
     context {
       let state = page-state(here().page())
       let note = state.final().at(state.get().len())
@@ -92,11 +97,11 @@
       pos.x += note.padding.left
 
       let num = counter.display(numbering)
-      h(0pt, weak: true) + link(pos, super(num))
+      link(pos, super(num))
     }
   }
   
-  h(0pt, weak: true) + sym.wj + context {
+  h(0pt, weak: true) + sym.wj + context if resolve-dir() == rtl [\u{200E}] + context {
     // Use side with largest margin if side is `auto`.
     let side = if side != auto { side } else {
       let margin-left = resolve-margin(left)
@@ -108,6 +113,7 @@
     }
 
     // Resolve values.
+    let dir = resolve-dir()
     let side = resolve-side(side)
     let padding = resolve-padding(padding)
     let margin = resolve-margin(side)
@@ -154,9 +160,7 @@
     position.x = if side == right and page-width != auto { page-width - margin }
                  else { 0pt }
 
-    if resolve-dir() == rtl {
-      position.x += margin
-    }
+    if dir == rtl { position.x += margin }
 
     page-state(here().page()).update(notes => {
       let position = position
@@ -180,7 +184,8 @@
         side: side,
         gap: gap,
         padding: padding,
-        body: note-body
+        dir: dir,
+        body: note-body,
       )
 
       // Move previous notes up to restore the gap and prevent overlap with
