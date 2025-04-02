@@ -18,12 +18,12 @@
     let padding = if it.side == left { it.padding.right }
                   else { -it.padding.left }
     
-    place(path(
+    place(curve(
       stroke: (paint: color, join: "round", cap: "round"),
-      (start-x, start-y),
-      (start-x + padding / 2, start-y),
-      (start-x + padding / 2, dy + offset),
-      (dx, dy + offset),
+      curve.move((start-x, start-y)),
+      curve.line((start-x + padding / 2, start-y)),
+      curve.line((start-x + padding / 2, dy + offset)),
+      curve.line((dx, dy + offset)),
     ))
 
     place(dx: dx, dy: dy + offset, {
